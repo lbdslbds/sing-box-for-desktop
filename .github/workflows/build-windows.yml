@@ -25,13 +25,13 @@ jobs:
           submodules: recursive
           fetch-depth: 1
 
-      # 2. 检出 sing-box 官方内核源码到同级目录（v7）
+      # 2. 检出 sing-box 官方内核源码到同级目录（获取完整历史与 tags 以供版本检测）
       - name: Checkout sing-box core
         uses: actions/checkout@v7
         with:
           repository: SagerNet/sing-box
           path: sing-box
-          fetch-depth: 1
+          fetch-depth: 0
 
       # 3. 设置 Go 编译环境（使用最新 v7 版本）
       - name: Setup Go
