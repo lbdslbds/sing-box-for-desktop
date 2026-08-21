@@ -13,6 +13,8 @@ on:
 jobs:
   build-windows-x64:
     runs-on: windows-latest
+    env:
+      COREPACK_ENABLE_STRICT: "0"
 
     steps:
       # 1. 检出桌面客户端源码（使用最新 v7 版本，包含 dashboard 等子模块）
@@ -38,18 +40,19 @@ jobs:
           go-version: "stable"
           check-latest: true
 
-      # 4. 设置 Rust 工具链（编译 native/windows-share，仅 x64 架构）
+      # 4. 设置 Rust 工具链（编译 native/windows-share，仅 x64 架构，关闭根目录缓存查找）
       - name: Setup Rust Toolchain
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: stable
           target: "x86_64-pc-windows-msvc"
+          cache: false
 
       # 5. 设置 pnpm（使用最新 v2 版本）与 Node.js（v7）
       - name: Setup pnpm
         uses: pnpm/setup@v2
         with:
-          version: 11
+          version: 11.22.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
